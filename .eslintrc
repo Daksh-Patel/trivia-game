@@ -95,7 +95,8 @@
       "extends": ["plugin:storybook/recommended"],
       "rules": {
         "import/no-anonymous-default-export": "off",
-        "@typescript-eslint/await-thenable": "off"
+        "@typescript-eslint/await-thenable": "off",
+        "@typescript-eslint/no-floating-promises": "off"
       }
     },
     {
