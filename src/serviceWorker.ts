@@ -1,3 +1,12 @@
+/* eslint-disable promise/no-nesting */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable no-param-reassign */
+/* eslint-disable promise/catch-or-return */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable promise/always-return */
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -16,7 +25,7 @@ const isLocalhost = Boolean(
     window.location.hostname === "[::1]" ||
     // 127.0.0.0/8 are considered localhost for IPv4.
     window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/,
+      /^127(?:\.(?:25[0-5]|2[0-4]\d|[01]?\d{1,2})){3}$/,
     ),
 )
 
