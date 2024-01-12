@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 
-import { Box, Heading } from "@chakra-ui/react"
+import { Box, Divider, HStack, Heading, Text } from "@chakra-ui/react"
 import axios from "axios"
+
+import Questions from "components/questions/questions"
 
 interface DataTypes {
   type: string
@@ -12,13 +14,21 @@ interface DataTypes {
   incorrect_answers: string[]
 }
 
-interface Data {
+export interface Data {
   response_code: number
   results: DataTypes[]
 }
 
 const HomePage = () => {
-  const [questionsList, setQuestionsList] = useState<Data>()
+  const [questionsList, setQuestionsList] = useState<Data | null>(null)
+
+  const [activeStep, setActiveStep] = useState<number>(0)
+  const [completed, setCompleted] = useState<boolean>(false)
+
+  const [correctAnswer, setCorrectAnswer] = useState<string[]>([])
+  const [wrongAnswer, setWrongAnswer] = useState<string[]>([])
+
+  const questionNumber: number = activeStep + 1
 
   useEffect(() => {
     axios
@@ -36,10 +46,27 @@ const HomePage = () => {
         Trivia Game
       </Heading>
 
-      <Box>
-        {questionsList?.results.map((ques) => (
-          <Box key={ques.question}>{ques.correct_answer}</Box>
-        ))}
+      <Box w='full' mt={5}>
+        <HStack w='full' justifyContent='flex-end'>
+          <Text>
+            Question: {questionNumber}/{questionsList?.results.length}
+          </Text>
+        </HStack>
+
+        <Divider mt={2} mb={5} />
+
+        <Questions
+          questionsList={questionsList}
+          activeStep={activeStep}
+          questionNumber={questionNumber}
+          setActiveStep={setActiveStep}
+          completed={completed}
+          setCompleted={setCompleted}
+          correctAnswer={correctAnswer}
+          setCorrectAnswer={setCorrectAnswer}
+          wrongAnswer={wrongAnswer}
+          setWrongAnswer={setWrongAnswer}
+        />
       </Box>
     </>
   )
