@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { Box, Divider, HStack, Heading, Text } from "@chakra-ui/react"
+import { Box, Divider, HStack, Heading, Spinner, Text } from "@chakra-ui/react"
 import axios from "axios"
 
 import Questions from "components/questions/questions"
@@ -53,40 +53,44 @@ const HomePage = () => {
         Trivia Game
       </Heading>
 
-      <Box w='full' mt={5}>
-        {activeStep !== 10 && (
-          <>
-            <HStack w='full' justifyContent='flex-end'>
-              <Text>
-                Question: {questionNumber}/{questionsList?.results.length}
-              </Text>
-            </HStack>
+      {questionsList == null && <Spinner />}
 
-            <Divider mt={2} mb={5} />
+      {questionsList !== null && (
+        <Box w='full' mt={5}>
+          {activeStep !== 10 && (
+            <>
+              <HStack w='full' justifyContent='flex-end'>
+                <Text>
+                  Question: {questionNumber}/{questionsList?.results.length}
+                </Text>
+              </HStack>
 
-            <Questions
+              <Divider mt={2} mb={5} />
+
+              <Questions
+                questionsList={questionsList}
+                activeStep={activeStep}
+                questionNumber={questionNumber}
+                setActiveStep={setActiveStep}
+                completed={completed}
+                setCompleted={setCompleted}
+                correctAnswer={correctAnswer}
+                setCorrectAnswer={setCorrectAnswer}
+                wrongAnswer={wrongAnswer}
+                setWrongAnswer={setWrongAnswer}
+              />
+            </>
+          )}
+
+          {activeStep === 10 && (
+            <Result
               questionsList={questionsList}
-              activeStep={activeStep}
-              questionNumber={questionNumber}
-              setActiveStep={setActiveStep}
-              completed={completed}
-              setCompleted={setCompleted}
               correctAnswer={correctAnswer}
-              setCorrectAnswer={setCorrectAnswer}
               wrongAnswer={wrongAnswer}
-              setWrongAnswer={setWrongAnswer}
             />
-          </>
-        )}
-
-        {activeStep === 10 && (
-          <Result
-            questionsList={questionsList}
-            correctAnswer={correctAnswer}
-            wrongAnswer={wrongAnswer}
-          />
-        )}
-      </Box>
+          )}
+        </Box>
+      )}
     </>
   )
 }
