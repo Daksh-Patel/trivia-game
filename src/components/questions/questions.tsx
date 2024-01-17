@@ -153,6 +153,7 @@ const Questions = (props: QuestionsProps) => {
           <InfoMessage
             status={status}
             text={status === "success" ? "Correct Answer" : "Wrong Answer"}
+            answer={questionsList?.results[activeStep].correct_answer ?? ""}
           />
 
           <Divider my={5} />

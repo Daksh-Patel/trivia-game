@@ -26,7 +26,6 @@ const NextNavigationButton = (props: NextNavigationButtonProps) => {
         variant='outline'
         ml='auto'
         colorScheme='black'
-        isDisabled={activeStep === 9}
       >
         Next
       </Button>
